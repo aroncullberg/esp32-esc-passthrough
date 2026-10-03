@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+menu "ESC passthrough"
+    config ESC1_GPIO
+        int "ESC 1 GPIO (-1 disables)"
+        range -1 48
+        default 0
+    config ESC2_GPIO
+        int "ESC 2 GPIO (-1 disables)"
+        range -1 48
+        default -1
+    config ESC3_GPIO
+        int "ESC 3 GPIO (-1 disables)"
+        range -1 48
+        default -1
+    config ESC4_GPIO
+        int "ESC 4 GPIO (-1 disables)"
+        range -1 48
+        default -1
+    comment "Enabled slots must start at ESC 1"
+endmenu

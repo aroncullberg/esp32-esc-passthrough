@@ -1,0 +1,3273 @@
+{
+  "metadata": {
+    "format": "esc-webserial-trace-v1",
+    "url": "https://esc-configurator.com/",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "startedAt": "2026-10-01T10:44:18.215Z",
+    "droppedEvents": 0
+  },
+  "summary": {
+    "frameCount": 96,
+    "checksumFailures": 0,
+    "incompleteStreams": [],
+    "unansweredRequests": 0,
+    "unmatchedReplies": 0,
+    "commands": [
+      {
+        "protocol": "4way",
+        "command": 48,
+        "name": "InterfaceTestAlive",
+        "tx": 17,
+        "rx": 17
+      },
+      {
+        "protocol": "4way",
+        "command": 55,
+        "name": "DeviceInitFlash",
+        "tx": 20,
+        "rx": 20
+      },
+      {
+        "protocol": "MSPv1",
+        "command": 1,
+        "name": "API_VERSION",
+        "tx": 1,
+        "rx": 1
+      },
+      {
+        "protocol": "MSPv1",
+        "command": 2,
+        "name": "FC_VARIANT",
+        "tx": 1,
+        "rx": 1
+      },
+      {
+        "protocol": "MSPv1",
+        "command": 3,
+        "name": "FC_VERSION",
+        "tx": 1,
+        "rx": 1
+      },
+      {
+        "protocol": "MSPv1",
+        "command": 4,
+        "name": "BOARD_INFO",
+        "tx": 1,
+        "rx": 1
+      },
+      {
+        "protocol": "MSPv1",
+        "command": 5,
+        "name": "BUILD_INFO",
+        "tx": 1,
+        "rx": 1
+      },
+      {
+        "protocol": "MSPv1",
+        "command": 36,
+        "name": "FEATURE_CONFIG",
+        "tx": 1,
+        "rx": 1
+      },
+      {
+        "protocol": "MSPv1",
+        "command": 104,
+        "name": "MOTOR",
+        "tx": 1,
+        "rx": 1
+      },
+      {
+        "protocol": "MSPv1",
+        "command": 130,
+        "name": "BATTERY_STATE",
+        "tx": 2,
+        "rx": 2
+      },
+      {
+        "protocol": "MSPv1",
+        "command": 160,
+        "name": "UID",
+        "tx": 1,
+        "rx": 1
+      },
+      {
+        "protocol": "MSPv1",
+        "command": 245,
+        "name": "SET_PASSTHROUGH",
+        "tx": 1,
+        "rx": 1
+      }
+    ]
+  },
+  "frames": [
+    {
+      "protocol": "MSPv1",
+      "command": 1,
+      "direction": "<",
+      "payload": [],
+      "checksumValid": true,
+      "name": "API_VERSION",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 10750.5,
+      "endMs": 10750.5,
+      "eventIndex": 2,
+      "bytes": [
+        36,
+        77,
+        60,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 1,
+      "direction": ">",
+      "payload": [
+        0,
+        1,
+        46
+      ],
+      "checksumValid": true,
+      "name": "API_VERSION",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 10758,
+      "endMs": 10758,
+      "eventIndex": 3,
+      "bytes": [
+        36,
+        77,
+        62,
+        3,
+        1,
+        0,
+        1,
+        46,
+        45
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 2,
+      "direction": "<",
+      "payload": [],
+      "checksumValid": true,
+      "name": "FC_VARIANT",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 10758.7,
+      "endMs": 10758.7,
+      "eventIndex": 4,
+      "bytes": [
+        36,
+        77,
+        60,
+        0,
+        2,
+        2
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 2,
+      "direction": ">",
+      "payload": [
+        66,
+        84,
+        70,
+        76
+      ],
+      "checksumValid": true,
+      "name": "FC_VARIANT",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 10767.4,
+      "endMs": 10767.4,
+      "eventIndex": 5,
+      "bytes": [
+        36,
+        77,
+        62,
+        4,
+        2,
+        66,
+        84,
+        70,
+        76,
+        26
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 3,
+      "direction": "<",
+      "payload": [],
+      "checksumValid": true,
+      "name": "FC_VERSION",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 10767.6,
+      "endMs": 10767.6,
+      "eventIndex": 6,
+      "bytes": [
+        36,
+        77,
+        60,
+        0,
+        3,
+        3
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 3,
+      "direction": ">",
+      "payload": [
+        4,
+        5,
+        1
+      ],
+      "checksumValid": true,
+      "name": "FC_VERSION",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 10777.1,
+      "endMs": 10777.1,
+      "eventIndex": 7,
+      "bytes": [
+        36,
+        77,
+        62,
+        3,
+        3,
+        4,
+        5,
+        1,
+        0
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 5,
+      "direction": "<",
+      "payload": [],
+      "checksumValid": true,
+      "name": "BUILD_INFO",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 10777.4,
+      "endMs": 10777.4,
+      "eventIndex": 8,
+      "bytes": [
+        36,
+        77,
+        60,
+        0,
+        5,
+        5
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 5,
+      "direction": ">",
+      "payload": [
+        83,
+        101,
+        112,
+        32,
+        50,
+        57,
+        32,
+        50,
+        48,
+        50,
+        52,
+        49,
+        52,
+        58,
+        49,
+        51,
+        58,
+        53,
+        50,
+        55,
+        55,
+        100,
+        48,
+        49,
+        98,
+        97,
+        7,
+        16,
+        20,
+        64,
+        23,
+        64,
+        28,
+        64,
+        29,
+        64,
+        32,
+        64,
+        33,
+        64,
+        34,
+        64,
+        37,
+        64,
+        39,
+        32,
+        43,
+        32
+      ],
+      "checksumValid": true,
+      "name": "BUILD_INFO",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 10787.1,
+      "endMs": 10787.1,
+      "eventIndex": 9,
+      "bytes": [
+        36,
+        77,
+        62,
+        48,
+        5,
+        83,
+        101,
+        112,
+        32,
+        50,
+        57,
+        32,
+        50,
+        48,
+        50,
+        52,
+        49,
+        52,
+        58,
+        49,
+        51,
+        58,
+        53,
+        50,
+        55,
+        55,
+        100,
+        48,
+        49,
+        98,
+        97,
+        7,
+        16,
+        20,
+        64,
+        23,
+        64,
+        28,
+        64,
+        29,
+        64,
+        32,
+        64,
+        33,
+        64,
+        34,
+        64,
+        37,
+        64,
+        39,
+        32,
+        43,
+        32,
+        5
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 4,
+      "direction": "<",
+      "payload": [],
+      "checksumValid": true,
+      "name": "BOARD_INFO",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 10787.4,
+      "endMs": 10787.4,
+      "eventIndex": 10,
+      "bytes": [
+        36,
+        77,
+        60,
+        0,
+        4,
+        4
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 4,
+      "direction": ">",
+      "payload": [
+        83,
+        55,
+        88,
+        50,
+        0,
+        0,
+        2,
+        3,
+        9,
+        83,
+        84,
+        77,
+        51,
+        50,
+        70,
+        55,
+        88,
+        50,
+        7,
+        65,
+        73,
+        75,
+        79,
+        78,
+        70,
+        55,
+        4,
+        65,
+        73,
+        75,
+        79,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        1,
+        64,
+        31,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "checksumValid": true,
+      "name": "BOARD_INFO",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 10797,
+      "endMs": 10797,
+      "eventIndex": 11,
+      "bytes": [
+        36,
+        77,
+        62,
+        73,
+        4,
+        83,
+        55,
+        88,
+        50,
+        0,
+        0,
+        2,
+        3,
+        9,
+        83,
+        84,
+        77,
+        51,
+        50,
+        70,
+        55,
+        88,
+        50,
+        7,
+        65,
+        73,
+        75,
+        79,
+        78,
+        70,
+        55,
+        4,
+        65,
+        73,
+        75,
+        79,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        1,
+        64,
+        31,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        125
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 160,
+      "direction": "<",
+      "payload": [],
+      "checksumValid": true,
+      "name": "UID",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 10797.4,
+      "endMs": 10797.4,
+      "eventIndex": 12,
+      "bytes": [
+        36,
+        77,
+        60,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 160,
+      "direction": ">",
+      "payload": [
+        48,
+        0,
+        74,
+        0,
+        15,
+        81,
+        56,
+        50,
+        53,
+        50,
+        53,
+        54
+      ],
+      "checksumValid": true,
+      "name": "UID",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 10807,
+      "endMs": 10807,
+      "eventIndex": 13,
+      "bytes": [
+        36,
+        77,
+        62,
+        12,
+        160,
+        48,
+        0,
+        74,
+        0,
+        15,
+        81,
+        56,
+        50,
+        53,
+        50,
+        53,
+        54,
+        134
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 104,
+      "direction": "<",
+      "payload": [],
+      "checksumValid": true,
+      "name": "MOTOR",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 10807.3,
+      "endMs": 10807.3,
+      "eventIndex": 14,
+      "bytes": [
+        36,
+        77,
+        60,
+        0,
+        104,
+        104
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 104,
+      "direction": ">",
+      "payload": [
+        232,
+        3,
+        232,
+        3,
+        232,
+        3,
+        232,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "name": "MOTOR",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 10817,
+      "endMs": 10817,
+      "eventIndex": 15,
+      "bytes": [
+        36,
+        77,
+        62,
+        16,
+        104,
+        232,
+        3,
+        232,
+        3,
+        232,
+        3,
+        232,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        120
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 36,
+      "direction": "<",
+      "payload": [],
+      "checksumValid": true,
+      "name": "FEATURE_CONFIG",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 10817.2,
+      "endMs": 10817.2,
+      "eventIndex": 16,
+      "bytes": [
+        36,
+        77,
+        60,
+        0,
+        36,
+        36
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 36,
+      "direction": ">",
+      "payload": [
+        8,
+        0,
+        69,
+        16
+      ],
+      "checksumValid": true,
+      "name": "FEATURE_CONFIG",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 10827,
+      "endMs": 10827,
+      "eventIndex": 17,
+      "bytes": [
+        36,
+        77,
+        62,
+        4,
+        36,
+        8,
+        0,
+        69,
+        16,
+        125
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 130,
+      "direction": "<",
+      "payload": [],
+      "checksumValid": true,
+      "name": "BATTERY_STATE",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 11836.2,
+      "endMs": 11836.2,
+      "eventIndex": 18,
+      "bytes": [
+        36,
+        77,
+        60,
+        0,
+        130,
+        130
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 130,
+      "direction": ">",
+      "payload": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        2,
+        0
+      ],
+      "checksumValid": true,
+      "name": "BATTERY_STATE",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 11840.1,
+      "endMs": 11840.1,
+      "eventIndex": 19,
+      "bytes": [
+        36,
+        77,
+        62,
+        11,
+        130,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        2,
+        0,
+        136
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 130,
+      "direction": "<",
+      "payload": [],
+      "checksumValid": true,
+      "name": "BATTERY_STATE",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 12835.6,
+      "endMs": 12835.6,
+      "eventIndex": 20,
+      "bytes": [
+        36,
+        77,
+        60,
+        0,
+        130,
+        130
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 130,
+      "direction": ">",
+      "payload": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        2,
+        0
+      ],
+      "checksumValid": true,
+      "name": "BATTERY_STATE",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 12840.5,
+      "endMs": 12840.5,
+      "eventIndex": 21,
+      "bytes": [
+        36,
+        77,
+        62,
+        11,
+        130,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        2,
+        0,
+        136
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 245,
+      "direction": "<",
+      "payload": [],
+      "checksumValid": true,
+      "name": "SET_PASSTHROUGH",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 13095.5,
+      "endMs": 13095.5,
+      "eventIndex": 22,
+      "bytes": [
+        36,
+        77,
+        60,
+        0,
+        245,
+        245
+      ]
+    },
+    {
+      "protocol": "MSPv1",
+      "command": 245,
+      "direction": ">",
+      "payload": [
+        4
+      ],
+      "checksumValid": true,
+      "name": "SET_PASSTHROUGH",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 13104.5,
+      "endMs": 13104.5,
+      "eventIndex": 23,
+      "bytes": [
+        36,
+        77,
+        62,
+        1,
+        245,
+        4,
+        240
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 13907.4,
+      "endMs": 13907.4,
+      "eventIndex": 24,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 13908.3,
+      "endMs": 13910.1,
+      "eventIndex": 25,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 14307.8,
+      "endMs": 14307.8,
+      "eventIndex": 27,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        0,
+        168,
+        0
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 14340.1,
+      "endMs": 14340.1,
+      "eventIndex": 28,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 14592.3,
+      "endMs": 14592.3,
+      "eventIndex": 29,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        0,
+        168,
+        0
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 14624.6,
+      "endMs": 14624.6,
+      "eventIndex": 30,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 15126.7,
+      "endMs": 15126.7,
+      "eventIndex": 31,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        0,
+        168,
+        0
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 15158.6,
+      "endMs": 15158.6,
+      "eventIndex": 32,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 15507.4,
+      "endMs": 15507.4,
+      "eventIndex": 33,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 15510.6,
+      "endMs": 15510.6,
+      "eventIndex": 34,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 15910.4,
+      "endMs": 15910.4,
+      "eventIndex": 35,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        0,
+        168,
+        0
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 15942,
+      "endMs": 15942,
+      "eventIndex": 36,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 16944,
+      "endMs": 16944,
+      "eventIndex": 37,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        0,
+        168,
+        0
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 16977.5,
+      "endMs": 16977.5,
+      "eventIndex": 38,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        1
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 16981.6,
+      "endMs": 16981.6,
+      "eventIndex": 39,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        1,
+        184,
+        33
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 17014.7,
+      "endMs": 17014.7,
+      "eventIndex": 40,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        1
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 17266.2,
+      "endMs": 17266.2,
+      "eventIndex": 41,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        1,
+        184,
+        33
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 17299.4,
+      "endMs": 17299.4,
+      "eventIndex": 42,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        1
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 17802,
+      "endMs": 17802,
+      "eventIndex": 43,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        1,
+        184,
+        33
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 17835.9,
+      "endMs": 17835.9,
+      "eventIndex": 44,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 17906.9,
+      "endMs": 17906.9,
+      "eventIndex": 45,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 17907.8,
+      "endMs": 17907.8,
+      "eventIndex": 46,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        1
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 18588.2,
+      "endMs": 18588.2,
+      "eventIndex": 47,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        1,
+        184,
+        33
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 18619.2,
+      "endMs": 18619.2,
+      "eventIndex": 48,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 19506.7,
+      "endMs": 19506.7,
+      "eventIndex": 49,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 19509.8,
+      "endMs": 19509.8,
+      "eventIndex": 50,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        1
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 19621.3,
+      "endMs": 19621.3,
+      "eventIndex": 51,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        1,
+        184,
+        33
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 19654.6,
+      "endMs": 19654.6,
+      "eventIndex": 52,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        2
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 19657.6,
+      "endMs": 19657.6,
+      "eventIndex": 53,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        2,
+        136,
+        66
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 19689.4,
+      "endMs": 19689.4,
+      "eventIndex": 54,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        2
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 19940,
+      "endMs": 19940,
+      "eventIndex": 55,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        2,
+        136,
+        66
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 19971.3,
+      "endMs": 19971.3,
+      "eventIndex": 56,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        2
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 20473,
+      "endMs": 20473,
+      "eventIndex": 57,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        2,
+        136,
+        66
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 20505.5,
+      "endMs": 20505.5,
+      "eventIndex": 58,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 21106.3,
+      "endMs": 21106.3,
+      "eventIndex": 59,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 21109,
+      "endMs": 21109,
+      "eventIndex": 60,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        2
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 21257.4,
+      "endMs": 21257.4,
+      "eventIndex": 61,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        2,
+        136,
+        66
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 21288.7,
+      "endMs": 21288.7,
+      "eventIndex": 62,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        2
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 22290.6,
+      "endMs": 22290.6,
+      "eventIndex": 63,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        2,
+        136,
+        66
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 22321.8,
+      "endMs": 22321.8,
+      "eventIndex": 64,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        3
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 22324.4,
+      "endMs": 22324.4,
+      "eventIndex": 65,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        3,
+        152,
+        99
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 22356.5,
+      "endMs": 22356.5,
+      "eventIndex": 66,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        3
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 22608.3,
+      "endMs": 22608.3,
+      "eventIndex": 67,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        3,
+        152,
+        99
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 22641.2,
+      "endMs": 22641.2,
+      "eventIndex": 68,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        3
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 23143.8,
+      "endMs": 23143.8,
+      "eventIndex": 69,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        3,
+        152,
+        99
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 23175,
+      "endMs": 23175.5,
+      "eventIndex": 70,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 23507,
+      "endMs": 23507,
+      "eventIndex": 72,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 23509.2,
+      "endMs": 23509.2,
+      "eventIndex": 73,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        3
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 23927.6,
+      "endMs": 23927.6,
+      "eventIndex": 74,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        3,
+        152,
+        99
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 23961.2,
+      "endMs": 23961.2,
+      "eventIndex": 75,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        3
+      ],
+      "checksumValid": true,
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 24963.3,
+      "endMs": 24963.3,
+      "eventIndex": 76,
+      "bytes": [
+        47,
+        55,
+        0,
+        0,
+        1,
+        3,
+        152,
+        99
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 55,
+      "address": 0,
+      "payload": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "checksumValid": true,
+      "ack": 15,
+      "ackName": "ACK_D_GENERAL_ERROR",
+      "name": "DeviceInitFlash",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 24996.3,
+      "endMs": 24996.3,
+      "eventIndex": 77,
+      "bytes": [
+        46,
+        55,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        15,
+        178,
+        30
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 25105.9,
+      "endMs": 25105.9,
+      "eventIndex": 78,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 25108.5,
+      "endMs": 25108.5,
+      "eventIndex": 79,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 26706.4,
+      "endMs": 26706.4,
+      "eventIndex": 80,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 26707.9,
+      "endMs": 26707.9,
+      "eventIndex": 81,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 28306.6,
+      "endMs": 28306.6,
+      "eventIndex": 82,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 28307.5,
+      "endMs": 28307.5,
+      "eventIndex": 83,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 29905.5,
+      "endMs": 29905.5,
+      "eventIndex": 84,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 29906.5,
+      "endMs": 29906.5,
+      "eventIndex": 85,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 31506.8,
+      "endMs": 31506.8,
+      "eventIndex": 86,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 31508.2,
+      "endMs": 31508.2,
+      "eventIndex": 87,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 33107.2,
+      "endMs": 33107.2,
+      "eventIndex": 88,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 33110.1,
+      "endMs": 33110.1,
+      "eventIndex": 89,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 34706.9,
+      "endMs": 34706.9,
+      "eventIndex": 90,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 34709.3,
+      "endMs": 34709.3,
+      "eventIndex": 91,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 36306.7,
+      "endMs": 36306.7,
+      "eventIndex": 92,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 36308.8,
+      "endMs": 36308.8,
+      "eventIndex": 93,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 37906,
+      "endMs": 37906,
+      "eventIndex": 94,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 37908,
+      "endMs": 37908,
+      "eventIndex": 95,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 39506.2,
+      "endMs": 39506.2,
+      "eventIndex": 96,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 39507.4,
+      "endMs": 39507.4,
+      "eventIndex": 97,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "tx",
+      "startMs": 41106.4,
+      "endMs": 41106.4,
+      "eventIndex": 98,
+      "bytes": [
+        47,
+        48,
+        0,
+        0,
+        1,
+        0,
+        207,
+        212
+      ]
+    },
+    {
+      "protocol": "4way",
+      "command": 48,
+      "address": 0,
+      "payload": [
+        0
+      ],
+      "checksumValid": true,
+      "ack": 0,
+      "ackName": "ACK_OK",
+      "name": "InterfaceTestAlive",
+      "port": 1,
+      "kind": "rx",
+      "startMs": 41109,
+      "endMs": 41109,
+      "eventIndex": 99,
+      "bytes": [
+        46,
+        48,
+        0,
+        0,
+        1,
+        0,
+        0,
+        68,
+        194
+      ]
+    }
+  ],
+  "exchanges": [
+    {
+      "requestFrame": 0,
+      "replyFrame": 1,
+      "elapsedMs": 7.5
+    },
+    {
+      "requestFrame": 2,
+      "replyFrame": 3,
+      "elapsedMs": 8.7
+    },
+    {
+      "requestFrame": 4,
+      "replyFrame": 5,
+      "elapsedMs": 9.5
+    },
+    {
+      "requestFrame": 6,
+      "replyFrame": 7,
+      "elapsedMs": 9.7
+    },
+    {
+      "requestFrame": 8,
+      "replyFrame": 9,
+      "elapsedMs": 9.6
+    },
+    {
+      "requestFrame": 10,
+      "replyFrame": 11,
+      "elapsedMs": 9.6
+    },
+    {
+      "requestFrame": 12,
+      "replyFrame": 13,
+      "elapsedMs": 9.7
+    },
+    {
+      "requestFrame": 14,
+      "replyFrame": 15,
+      "elapsedMs": 9.8
+    },
+    {
+      "requestFrame": 16,
+      "replyFrame": 17,
+      "elapsedMs": 3.9
+    },
+    {
+      "requestFrame": 18,
+      "replyFrame": 19,
+      "elapsedMs": 4.9
+    },
+    {
+      "requestFrame": 20,
+      "replyFrame": 21,
+      "elapsedMs": 9.0
+    },
+    {
+      "requestFrame": 22,
+      "replyFrame": 23,
+      "elapsedMs": 2.7
+    },
+    {
+      "requestFrame": 24,
+      "replyFrame": 25,
+      "elapsedMs": 32.3
+    },
+    {
+      "requestFrame": 26,
+      "replyFrame": 27,
+      "elapsedMs": 32.3
+    },
+    {
+      "requestFrame": 28,
+      "replyFrame": 29,
+      "elapsedMs": 31.9
+    },
+    {
+      "requestFrame": 30,
+      "replyFrame": 31,
+      "elapsedMs": 3.2
+    },
+    {
+      "requestFrame": 32,
+      "replyFrame": 33,
+      "elapsedMs": 31.6
+    },
+    {
+      "requestFrame": 34,
+      "replyFrame": 35,
+      "elapsedMs": 33.5
+    },
+    {
+      "requestFrame": 36,
+      "replyFrame": 37,
+      "elapsedMs": 33.1
+    },
+    {
+      "requestFrame": 38,
+      "replyFrame": 39,
+      "elapsedMs": 33.2
+    },
+    {
+      "requestFrame": 40,
+      "replyFrame": 41,
+      "elapsedMs": 33.9
+    },
+    {
+      "requestFrame": 42,
+      "replyFrame": 43,
+      "elapsedMs": 0.9
+    },
+    {
+      "requestFrame": 44,
+      "replyFrame": 45,
+      "elapsedMs": 31.0
+    },
+    {
+      "requestFrame": 46,
+      "replyFrame": 47,
+      "elapsedMs": 3.1
+    },
+    {
+      "requestFrame": 48,
+      "replyFrame": 49,
+      "elapsedMs": 33.3
+    },
+    {
+      "requestFrame": 50,
+      "replyFrame": 51,
+      "elapsedMs": 31.8
+    },
+    {
+      "requestFrame": 52,
+      "replyFrame": 53,
+      "elapsedMs": 31.3
+    },
+    {
+      "requestFrame": 54,
+      "replyFrame": 55,
+      "elapsedMs": 32.5
+    },
+    {
+      "requestFrame": 56,
+      "replyFrame": 57,
+      "elapsedMs": 2.7
+    },
+    {
+      "requestFrame": 58,
+      "replyFrame": 59,
+      "elapsedMs": 31.3
+    },
+    {
+      "requestFrame": 60,
+      "replyFrame": 61,
+      "elapsedMs": 31.2
+    },
+    {
+      "requestFrame": 62,
+      "replyFrame": 63,
+      "elapsedMs": 32.1
+    },
+    {
+      "requestFrame": 64,
+      "replyFrame": 65,
+      "elapsedMs": 32.9
+    },
+    {
+      "requestFrame": 66,
+      "replyFrame": 67,
+      "elapsedMs": 31.7
+    },
+    {
+      "requestFrame": 68,
+      "replyFrame": 69,
+      "elapsedMs": 2.2
+    },
+    {
+      "requestFrame": 70,
+      "replyFrame": 71,
+      "elapsedMs": 33.6
+    },
+    {
+      "requestFrame": 72,
+      "replyFrame": 73,
+      "elapsedMs": 33.0
+    },
+    {
+      "requestFrame": 74,
+      "replyFrame": 75,
+      "elapsedMs": 2.6
+    },
+    {
+      "requestFrame": 76,
+      "replyFrame": 77,
+      "elapsedMs": 1.5
+    },
+    {
+      "requestFrame": 78,
+      "replyFrame": 79,
+      "elapsedMs": 0.9
+    },
+    {
+      "requestFrame": 80,
+      "replyFrame": 81,
+      "elapsedMs": 1.0
+    },
+    {
+      "requestFrame": 82,
+      "replyFrame": 83,
+      "elapsedMs": 1.4
+    },
+    {
+      "requestFrame": 84,
+      "replyFrame": 85,
+      "elapsedMs": 2.9
+    },
+    {
+      "requestFrame": 86,
+      "replyFrame": 87,
+      "elapsedMs": 2.4
+    },
+    {
+      "requestFrame": 88,
+      "replyFrame": 89,
+      "elapsedMs": 2.1
+    },
+    {
+      "requestFrame": 90,
+      "replyFrame": 91,
+      "elapsedMs": 2
+    },
+    {
+      "requestFrame": 92,
+      "replyFrame": 93,
+      "elapsedMs": 1.2
+    },
+    {
+      "requestFrame": 94,
+      "replyFrame": 95,
+      "elapsedMs": 2.6
+    }
+  ],
+  "source": "esc-serial-trace.json"
+}
