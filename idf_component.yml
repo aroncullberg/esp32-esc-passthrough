@@ -1,0 +1,8 @@
+version: "0.3.0"
+description: "MSP/4-way ESC settings passthrough with task-context pin ownership callbacks"
+license: "GPL-3.0-or-later"
+targets:
+  - esp32c3
+  - esp32s3
+dependencies:
+  idf: ">=6.1,<6.2"

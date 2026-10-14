@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later AND BSD-3-Clause
 // Adapted from Betaflight src/main/io/serial_4way.c
 // at commit a25aff92155a9507642304701cc442f915ac4f59.
-// ESP32 adaptation modified 2026-10-01.
+// ESP32 adaptation modified 2026-10-03.
 /*
  * This file is part of Cleanflight and Betaflight.
  *
@@ -109,30 +109,78 @@ static bool msp_reply(pt_t *pt, uint8_t command, const uint8_t *payload, size_t 
     return pt->output(pt->output_ctx, out, size + 6);
 }
 
-static void leave_session(pt_t *pt)
+void pt_set_session_ops(pt_t *pt, const pt_session_ops_t *session)
+{
+    pt->session = *session;
+}
+
+void pt_set_msp_handler(pt_t *pt, pt_msp_command_fn handler, void *ctx)
+{
+    pt->application_command = handler;
+    pt->application_ctx = ctx;
+}
+
+static bool builtin_msp(uint8_t command)
+{
+    switch (command) {
+    case 1: case 2: case 3: case 4: case 5: case 36: case 101: case 104:
+    case 124: case 130: case 131: case 160: case 245: return true;
+    default: return false;
+    }
+}
+
+void pt_reset_session(pt_t *pt)
 {
     pt->esc.release(pt->esc.ctx);
     pt->connected = false;
     pt->fourway = false;
+    pt->held = false;
     pt->mode = 1;
+}
+
+static void end_session(pt_t *pt, pt_session_end_reason_t reason)
+{
+    bool held = pt->held;
+    pt_reset_session(pt);
+    if (held && pt->session.end) pt->session.end(pt->session.ctx, reason);
+}
+
+static bool acquire_session(pt_t *pt)
+{
+    if (pt->held) return true;
+    if (pt->session.acquire && !pt->session.acquire(pt->session.ctx)) return false;
+    pt->held = true;
+    return true;
+}
+
+static bool reply_result(pt_t *pt, bool sent)
+{
+    if (!sent) end_session(pt, PT_SESSION_REPLY_FAILURE);
+    return sent;
 }
 
 static void handle_msp(pt_t *pt)
 {
     uint8_t command = pt->input[4];
     size_t incoming = pt->input[3];
-    uint8_t out[128] = {0};
+    uint8_t out[PT_MAX_MSP_PAYLOAD] = {0};
     size_t size = 0;
-    // Clear stale passthrough sessions on MSP discovery.
-    if (command == 1 && pt->fourway) leave_session(pt);
-    if (incoming && command != 245) {
-        msp_reply(pt, command, NULL, 0, true);
+    if (incoming && builtin_msp(command)) {
+        reply_result(pt, msp_reply(pt, command, NULL, 0, true));
         return;
     }
     switch (command) {
-    case 1: out[0] = 0; out[1] = 1; out[2] = 46; size = 3; break;
+    case 1:
+        if (!acquire_session(pt)) {
+            reply_result(pt, msp_reply(pt, command, NULL, 0, true)); return;
+        }
+        if (pt->fourway) {
+            pt->esc.release(pt->esc.ctx);
+            pt->connected = false; pt->fourway = false; pt->mode = 1;
+        }
+        out[0] = 0; out[1] = 1; out[2] = 46; size = 3; break;
     case 2: memcpy(out, "BTFL", 4); size = 4; break;
-    case 3: out[0] = 0; out[1] = 2; out[2] = 0; size = 3; break;
+    case 3: out[0] = 0; out[1] = 3; out[2] = 0; size = 3; break;
     case 4:
         memcpy(out, pt->board, 4);
         out[6] = 2; // Non-flight adapter
@@ -144,7 +192,7 @@ static void handle_msp(pt_t *pt)
         break;
     case 5:
         memcpy(out, __DATE__, 11); memcpy(out + 11, __TIME__, 8);
-        memcpy(out + 19, "mvp0002", 7); size = 26; break;
+        memcpy(out + 19, "comp003", 7); size = 26; break;
     case 36: size = 4; break;
     case 101:
         size = 22;
@@ -153,10 +201,8 @@ static void handle_msp(pt_t *pt)
         out[17] = 4; // RX_FAILSAFE no receiver
         break;
     case 104:
-        // 8 two byte values motor values
+        // MSP_MOTOR: eight little-endian uint16_t values.
         size = 16;
-        // defaults to zero (for unsued channels), 1000 for used channels
-        // this is little-endian so 1000 = 232*1 + 3*256 = 1000
         for (unsigned i = 0; i < pt->channels; ++i) {
             out[2 * i] = 0xe8;
             out[2 * i + 1] = 0x03;
@@ -173,20 +219,37 @@ static void handle_msp(pt_t *pt)
         break;
     case 160: memcpy(out, pt->uid, 12); size = 12; break;
     case 245:
-        // ESC passthrough requires an empty payload.
-        if (incoming) { msp_reply(pt, command, NULL, 0, true); return; }
+        if (!acquire_session(pt)) {
+            reply_result(pt, msp_reply(pt, command, NULL, 0, true)); return;
+        }
+        if (pt->session.activate && !pt->session.activate(pt->session.ctx)) {
+            bool sent = msp_reply(pt, command, NULL, 0, true);
+            end_session(pt, sent ? PT_SESSION_SETUP_FAILURE : PT_SESSION_REPLY_FAILURE);
+            return;
+        }
         out[0] = pt->channels;
-        if (msp_reply(pt, command, out, 1, false)) {
-            pt->esc.release(pt->esc.ctx);
-            pt->connected = false;
+        if (reply_result(pt, msp_reply(pt, command, out, 1, false))) {
+            if (!pt->fourway) {
+                pt->esc.release(pt->esc.ctx);
+                pt->connected = false;
+            }
             pt->fourway = true;
         }
         return;
     default:
-        msp_reply(pt, command, NULL, 0, true);
+        if (pt->application_command) {
+            bool error = false;
+            if (pt->application_command(pt->application_ctx, command, pt->input + 5,
+                                        incoming, out, sizeof(out), &size, &error)) {
+                if (size > sizeof(out)) { size = 0; error = true; }
+                reply_result(pt, msp_reply(pt, command, out, size, error));
+                return;
+            }
+        }
+        reply_result(pt, msp_reply(pt, command, NULL, 0, true));
         return;
     }
-    msp_reply(pt, command, out, size, false);
+    reply_result(pt, msp_reply(pt, command, out, size, false));
 }
 
 static bool fourway_reply(pt_t *pt, uint8_t command, uint16_t address,
@@ -214,6 +277,9 @@ static void handle_fourway(pt_t *pt)
     if (pt_crc_xmodem(pt->input, pt->used - 2) != actual_crc) ack = PT_INVALID_CRC;
     else if (size != 1 && command != 0x3b) ack = (command == 0x3e || command == 0x40)
                                   ? PT_INVALID_CMD : PT_INVALID_PARAM;
+    else if (!pt->fourway && (command == 0x35 || command == 0x37 || command == 0x39 ||
+                             command == 0x3a || command == 0x3b || command == 0x3f))
+        ack = PT_DEVICE_ERROR;
     else switch (command) {
     case 0x30:
         if (pt->connected && !pt->esc.alive(pt->esc.ctx)) {
@@ -249,15 +315,15 @@ static void handle_fourway(pt_t *pt)
             out_size = param[0] ? param[0] : 256;
             if (!pt->esc.read(pt->esc.ctx, address, out_size, out)) {
                 out_size = 1; out[0] = 0; ack = PT_DEVICE_ERROR;
-                pt->connected = false;
             }
         }
         break;
     case 0x39:
     case 0x3b:
         if (!pt->fourway || !pt->connected) ack = PT_DEVICE_ERROR;
-        else if (pt->mode != 1 || (command == 0x39 && !pt->esc.erase_page) ||
-                 (command == 0x3b && !pt->esc.write)) ack = PT_INVALID_CMD;
+        else if ((command == 0x39 && (pt->mode != 1 || !pt->esc.erase_page)) ||
+                 (command == 0x3b && ((pt->mode != 1 && pt->mode != 4) ||
+                                     !pt->esc.write))) ack = PT_INVALID_CMD;
         else if (command == 0x39 && param[0] > 127) ack = PT_INVALID_PARAM;
         else {
             bool ok = command == 0x39 ? pt->esc.erase_page(pt->esc.ctx, param[0])
@@ -269,10 +335,11 @@ static void handle_fourway(pt_t *pt)
         if (param[0] == 1 || param[0] == 4) pt->mode = param[0];
         else ack = PT_INVALID_PARAM;
         break;
-    default: ack = PT_INVALID_CMD; break; // Chip erase, EEPROM writes, verify, unsupported modes.
+    default: ack = PT_INVALID_CMD; break;
     }
-    if (fourway_reply(pt, command, address, out, out_size, ack) && exit && ack == PT_OK)
-        leave_session(pt);
+    bool sent = fourway_reply(pt, command, address, out, out_size, ack);
+    if (!sent) end_session(pt, PT_SESSION_REPLY_FAILURE);
+    else if (exit && ack == PT_OK) end_session(pt, PT_SESSION_EXIT);
 }
 
 void pt_expire(pt_t *pt, uint32_t now_ms)
@@ -297,11 +364,19 @@ void pt_feed(pt_t *pt, const uint8_t *data, size_t size, uint32_t now_ms)
             if (pt->used < 6 || pt->used != (size_t)pt->input[3] + 6) continue;
             uint8_t crc = 0;
             for (size_t j = 3; j < pt->used - 1; ++j) crc ^= pt->input[j];
-            if (crc == pt->input[pt->used - 1]) handle_msp(pt);
+            if (crc == pt->input[pt->used - 1]) {
+                if (pt->session.traffic) pt->session.traffic(pt->session.ctx, now_ms);
+                handle_msp(pt);
+            }
             pt->used = 0;
         } else if (pt->used >= 5) {
             size_t wanted = 7 + (pt->input[4] ? pt->input[4] : 256);
-            if (pt->used == wanted) { handle_fourway(pt); pt->used = 0; }
+            if (pt->used == wanted) {
+                uint16_t crc = (uint16_t)pt->input[wanted - 2] << 8 | pt->input[wanted - 1];
+                if (pt_crc_xmodem(pt->input, wanted - 2) == crc && pt->session.traffic)
+                    pt->session.traffic(pt->session.ctx, now_ms);
+                handle_fourway(pt); pt->used = 0;
+            }
         }
     }
 }

@@ -1,11 +1,15 @@
-/build*/
-/managed_components/
-/sdkconfig
-/sdkconfig.c3
-/sdkconfig.s3
-/sdkconfig.old
-/sdkconfig.*.old
-/compile_commands.json
+build*/
+managed_components/
+sdkconfig
+sdkconfig.c3
+sdkconfig.s3
+sdkconfig.basic.*
+sdkconfig.dshot.*
+sdkconfig.old
+sdkconfig.*.old
+compile_commands.json
+/examples/basic/dependencies.lock
+/examples/dshot/dependencies.lock
 
 /firmware/
 /backups/

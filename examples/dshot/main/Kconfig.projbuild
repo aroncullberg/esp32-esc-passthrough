@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+menu "DShot passthrough example"
+    config EXAMPLE_DSHOT_GPIO
+        int "ESC signal GPIO"
+        range -1 21 if IDF_TARGET_ESP32C3
+        range -1 48 if IDF_TARGET_ESP32S3
+        default 0 if IDF_TARGET_ESP32C3
+        default 4 if IDF_TARGET_ESP32S3
+        help
+            The single signal wire used by DShot and ESC passthrough.
+            -1 disables the example. Regular DShot300 at 1000 frames/s is fixed
+            by the example; there is no signaling or bitrate selection here.
+endmenu

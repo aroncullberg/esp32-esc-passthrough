@@ -1,0 +1,34 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+menu "ESC passthrough"
+    config ESC_PASSTHROUGH_UART
+        int "Default hardware UART controller"
+        range 0 1 if IDF_TARGET_ESP32C3
+        range 0 2 if IDF_TARGET_ESP32S3
+        default 1
+        help
+            Claimed only on valid MSP 245 and released at session end.
+            Must be unused by consoles or other drivers while passthrough owns it.
+            Applications can override this in esc_passthrough_config_t.
+    config ESC_PASSTHROUGH_LEASE_MS
+        int "Default configuration session lease (milliseconds; 0 disables)"
+        range 0 3600000
+        default 300000
+        help
+            Valid MSP/4-way packets refresh the lease. Expiry releases IO and
+            reports timeout; the application must keep motor output stopped.
+            Active synchronous transactions cannot expire mid-operation.
+    config ESC_PASSTHROUGH_BOOT_WAIT_MS
+        int "ESC bootloader entry hold (milliseconds)"
+        range 0 5000
+        default 2500
+        help
+            On hardware UART activation, drive idle ESC signals high and
+            allow this interval before the first ESC operation. MSP 245
+            replies immediately. AM32 can take two seconds to reset after DShot stops
+            and needs a high signal to stay in its serial bootloader. A weak
+            ESP pull-up alone may lose to the ESC bootloader's pull-down.
+            Selected pins are released to input for communication. Zero
+            disables the wait and active high parking. The application's
+            watchdog/client timeouts must allow the remaining wait on the
+            first ESC operation; custom IO implements its own entry.
+endmenu

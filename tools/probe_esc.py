@@ -38,13 +38,25 @@ class Probe:
         self.port.flush()
         response = bytearray()
         wanted = None
-        deadline = time.monotonic() + 2
+        # Allow for the adapter's bootloader entry delay.
+        deadline = time.monotonic() + 4
         while time.monotonic() < deadline:
             data = self.port.read(1 if wanted is None else wanted - len(response))
             if not data:
                 continue
             self.event("rx", data)
             response.extend(data)
+            if protocol == "msp" and wanted is None:
+                # Ignore console output between MSP frames.
+                start = response.find(b"$M")
+                if start < 0:
+                    response = response[-1:] if response.endswith(b"$") else bytearray()
+                    continue
+                if start:
+                    del response[:start]
+                if len(response) >= 3 and response[2] not in b">!":
+                    del response[0]
+                    continue
             if len(response) >= 5 and wanted is None:
                 if protocol == "msp":
                     if response[:2] != b"$M" or response[2] not in b">!":
@@ -74,11 +86,20 @@ class Probe:
             raise RuntimeError(f"4-way command 0x{command:02x}: ACK 0x{response[-3]:02x}")
         return bytes(response[5:-3])
 
-    def msp(self, command):
-        return self.exchange(b"$M<" + bytes([0, command, command]), "msp", command)
+    def msp(self, command, payload=b""):
+        checksum = len(payload) ^ command
+        for byte in payload:
+            checksum ^= byte
+        packet = b"$M<" + bytes([len(payload), command]) + payload + bytes([checksum])
+        return self.exchange(packet, "msp", command)
+
+    def diagnostics(self, channel):
+        try:
+            print(self.msp(253, bytes([channel])).decode("ascii", errors="replace"), end="")
+        except (RuntimeError, TimeoutError) as error:
+            print(f"Diagnostics unavailable: {error}")
 
     def fourway(self, command, param=0, address=0):
-        # Deliberately restricted to identification, read, reset and interface commands.
         if command not in (0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x37, 0x3a):
             raise ValueError("Not a read-only probe command")
         packet = bytes([0x2f, command, address >> 8, address & 255, 1, param])
@@ -97,13 +118,32 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", default="/dev/cu.usbmodem1101")
     parser.add_argument("--channel", type=int, choices=range(4), default=0)
-    parser.add_argument("--trace", type=Path, default=Path("tools/traces/c3-bluejay-probe.json"))
+    parser.add_argument("--trace", type=Path,
+                        help="Trace output; diagnostic modes save no file unless supplied")
     parser.add_argument("--settings", type=Path, default=Path("backups/bluejay-settings.bin"))
-    parser.add_argument("--msp-only", action="store_true")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--msp-only", action="store_true")
+    mode.add_argument("--identify-only", action="store_true",
+                      help="Identify ESCs and print raw init diagnostics; never read or write settings")
+    mode.add_argument("--diagnostics-only", action="store_true",
+                      help="Read retained init diagnostics without entering passthrough or touching ESC wires")
+    parser.add_argument("--all-channels", action="store_true",
+                        help="With --identify-only, probe each configured channel")
     args = parser.parse_args()
+    if args.all_channels and not args.identify_only:
+        parser.error("--all-channels requires --identify-only")
+    if args.trace is None and not (args.identify_only or args.diagnostics_only):
+        args.trace = Path("tools/traces/c3-bluejay-probe.json")
     probe = Probe(args.port)
     entered = connected = False
     try:
+        if args.diagnostics_only:
+            build = probe.msp(5).decode("ascii", errors="replace")
+            print(f"Adapter build: {build}")
+            count = probe.msp(131)[6]
+            for channel in range(count):
+                probe.diagnostics(channel)
+            return
         for command in (1, 2, 3, 5, 4, 160, 104, 36, 101, 130):
             data = probe.msp(command)
             print(f"MSP {command:3}: {data.hex(' ')}")
@@ -116,7 +156,24 @@ def main():
             raise RuntimeError("Requested channel is not configured")
         for command in (0x31, 0x32, 0x33):
             print(f"4-way 0x{command:02x}: {probe.fourway(command).hex(' ')}")
-        info = probe.fourway(0x37, args.channel)
+        if args.identify_only:
+            failures = []
+            for channel in range(count) if args.all_channels else [args.channel]:
+                try:
+                    info = probe.fourway(0x37, channel)
+                    print(f"Channel {channel}: identity={info.hex(' ')} mode={info[3]}")
+                except (RuntimeError, TimeoutError) as error:
+                    print(f"Channel {channel}: {error}")
+                    failures.append(channel)
+                probe.diagnostics(channel)
+            if failures:
+                raise RuntimeError(f"ESC identification failed on channel(s) {failures}")
+            return
+        try:
+            info = probe.fourway(0x37, args.channel)
+        except RuntimeError:
+            probe.diagnostics(args.channel)
+            raise
         connected = True
         signature = int.from_bytes(info[:2], "little")
         print(f"ESC identity: signature=0x{signature:04x}, boot='{chr(info[2])}', mode={info[3]}")

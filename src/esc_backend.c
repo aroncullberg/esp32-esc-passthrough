@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Adapted from Betaflight src/main/io/serial_4way_avrootloader.c
 // at commit a25aff92155a9507642304701cc442f915ac4f59.
-// ESP32 adaptation modified 2026-10-01.
+// ESP32 adaptation modified 2026-10-03.
 /*
  * This file is part of Cleanflight and Betaflight.
  *
@@ -61,22 +61,59 @@ static bool connect_esc(void *ctx, uint8_t channel, uint8_t info[4])
     b->connected = false;
     b->mode = 0;
     memset(info, 0, 4);
-    if (!b->wire.select(b->wire.ctx, channel)) return false;
-    // Bootloader entry sequence from Betaflight serial_4way_avrootloader.c.
+    if (channel >= PT_MAX_CHANNELS) return false;
+    esc_init_diagnostic_t *diagnostic = &b->init[channel];
+    memset(diagnostic, 0, sizeof(*diagnostic));
+    if (!b->wire.select(b->wire.ctx, channel)) {
+        diagnostic->attempts = 1;
+        diagnostic->attempt[0].result = ESC_INIT_SELECT_FAILED;
+        return false;
+    }
     static const uint8_t init[] = {0,0,0,0,0,0,0,0,0x0d,'B','L','H','e','l','i',0xf4,0x7d};
-    for (unsigned attempt = 0; attempt < 3; ++attempt) {
-        uint8_t reply[9];
-        if (!send_command(b, init, sizeof(init)) ||
-            !b->wire.receive(b->wire.ctx, reply, sizeof(reply), 30)) continue;
-        if (memcmp(reply, "471", 3) || reply[8] != 0x30) continue;
+    for (unsigned attempt = 0; attempt < ESC_INIT_ATTEMPTS; ++attempt) {
+        esc_init_attempt_t *record = &diagnostic->attempt[attempt];
+        diagnostic->attempts = attempt + 1;
+        uint8_t *reply = record->reply;
+        if (!send_command(b, init, sizeof(init))) {
+            record->result = ESC_INIT_SEND_FAILED;
+            continue;
+        }
+        bool complete = b->wire.receive(b->wire.ctx, reply, ESC_INIT_REPLY_SIZE, 30);
+        size_t received = complete ? ESC_INIT_REPLY_SIZE : b->wire.received_size
+            ? b->wire.received_size(b->wire.ctx) : ESC_RX_SIZE_UNKNOWN;
+        record->received = received <= ESC_INIT_REPLY_SIZE ? received : ESC_RX_SIZE_UNKNOWN;
+        if (!complete) { record->result = ESC_INIT_RX_TIMEOUT; continue; }
+        if (memcmp(reply, "471", 3)) {
+            // Recover the reply before retrying over the ESC's pending ACK.
+            for (unsigned skip = 1; skip < ESC_INIT_REPLY_SIZE; ++skip) {
+                size_t available = ESC_INIT_REPLY_SIZE - skip;
+                size_t prefix_size = available < 3 ? available : 3;
+                if (memcmp(reply + skip, "471", prefix_size)) continue;
+                record->skipped = skip;
+                memcpy(record->prefix, reply, skip);
+                memmove(reply, reply + skip, available);
+                memset(reply + available, 0, skip);
+                complete = b->wire.receive(b->wire.ctx, reply + available, skip, 30);
+                received = complete ? skip : b->wire.received_size
+                    ? b->wire.received_size(b->wire.ctx) : ESC_RX_SIZE_UNKNOWN;
+                record->received = received <= skip ? available + received : ESC_RX_SIZE_UNKNOWN;
+                break;
+            }
+            if (!complete) { record->result = ESC_INIT_RX_TIMEOUT; continue; }
+        }
+        if (memcmp(reply, "471", 3) || reply[8] != 0x30) {
+            record->result = ESC_INIT_BAD_REPLY;
+            continue;
+        }
         uint16_t signature = (uint16_t)reply[4] << 8 | reply[5];
         uint8_t mode;
         if (signature > 0xe800 && signature < 0xf900) mode = 1;
         else if (reply[4] > 0 && reply[4] < 0x90 && reply[5] == 6) mode = 4;
-        else continue;
+        else { record->result = ESC_INIT_BAD_SIGNATURE; continue; }
         info[0] = reply[5]; info[1] = reply[4]; info[2] = reply[3]; info[3] = mode;
         b->connected = true;
         b->mode = mode;
+        record->result = ESC_INIT_OK;
         return true;
     }
     b->wire.release(b->wire.ctx);
@@ -103,8 +140,7 @@ static bool read_esc(void *ctx, uint16_t address, size_t size, uint8_t *data)
     memcpy(data, reply, size);
     return true;
 fail:
-    b->connected = false;
-    b->wire.release(b->wire.ctx);
+    // AM32 probes unsupported addresses before falling back to settings reads.
     return false;
 }
 
@@ -127,7 +163,8 @@ static bool reset_esc(void *ctx, uint8_t channel, bool reboot)
     if (ok) {
         static const uint8_t reset[] = {0,0,0,0};
         ok = b->wire.send(b->wire.ctx, reset, sizeof(reset));
-        if (reboot) b->wire.pulse_low(b->wire.ctx, 300);
+        // Try the low pulse even if reset transmission fails.
+        if (reboot) ok = b->wire.pulse_low(b->wire.ctx, 300) && ok;
     }
     b->connected = false;
     b->wire.release(b->wire.ctx);
@@ -155,7 +192,6 @@ static bool erase_page(void *ctx, uint8_t page)
     if (!b->connected || b->mode != 1) return false;
     // SiLabs 4-way page numbers use 512-byte units (including BB51's multiplier).
     uint16_t address = (uint16_t)page << 9;
-    // Pages above 127 exceed the 16-bit address range.
     if (page > 127) return false;
     if (!set_address(b, address)) goto fail;
     const uint8_t erase[] = {0x02, 0x01};
@@ -172,8 +208,8 @@ fail:
 static bool write_esc(void *ctx, uint16_t address, size_t size, const uint8_t *data)
 {
     esc_backend_t *b = ctx;
-    if (!b->connected || b->mode != 1 || !data || !size || size > 256) return false;
-    // Address 0xffff keeps the bootloader's current address (like Betaflight)
+    if (!b->connected || (b->mode != 1 && b->mode != 4) || !data || !size || size > 256) return false;
+    // AM32 erases internally; 0xffff preserves the bootloader's current address.
     if (address != 0xffff && !set_address(b, address)) goto fail;
     const uint8_t buffer_command[] = {0xfe, 0, size == 256 ? 1 : 0, size == 256 ? 0 : (uint8_t)size};
     uint8_t ack;

@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Only this repository's own component uses a relative development path.
+# The separate DShot repository is fetched by the IDF Component Manager.
+dependencies:
+  idf: ">=6.1,<6.2"
+  esp32-esc-passthrough:
+    path: ../../..
+  dshot:
+    git: https://github.com/aroncullberg/esp32-dshot.git
+    version: 4713b423977dbf0df34b8af64580afffe27446f1
